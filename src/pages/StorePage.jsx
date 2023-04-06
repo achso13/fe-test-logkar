@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import Layout from "../components/UI/Layout";
 import Card from "../components/UI/Card";
-import { useSelector } from "react-redux";
 import IncompleteProfile from "../components/UI/IncompleteProfile";
 
 export default function StorePage() {
@@ -25,9 +26,9 @@ export default function StorePage() {
       {isProfileCompleted ? (
         <>
           {loading ? (
-            "Loading..."
+            <p className="text-center">Loading...</p>
           ) : (
-            <main className="grid grid-cols-3 gap-8">
+            <main className="mx-auto grid max-w-md grid-cols-3 gap-4">
               {films.map((film) => (
                 <Card key={film.episode_id} film={film} />
               ))}

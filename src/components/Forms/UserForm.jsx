@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import Button from "../UI/Button";
-import Input from "../UI/Input";
 import { useDispatch, useSelector } from "react-redux";
+
 import { updateUser } from "../../features/user/userSlice";
 
-export default function UserForm() {
+import Button from "../UI/Button";
+import Input from "../UI/Input";
+
+export default function UserForm({ setIsModalOpen }) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -40,7 +42,7 @@ export default function UserForm() {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
 
     let message = "";
     let error = false;
@@ -56,6 +58,9 @@ export default function UserForm() {
         error = true;
       } else if (isNaN(value)) {
         message = "Nomor telepon harus berupa angka";
+        error = true;
+      } else if (value[0] === "0") {
+        message = "Nomor telepon tidak boleh diawali dengan 0";
         error = true;
       } else if (!/^\d{10,13}$/.test(value)) {
         message = "Nomor telepon minimal 10 digit dan maksimal 13 digit";
@@ -100,6 +105,7 @@ export default function UserForm() {
       !formData.address.error
     ) {
       dispatch(updateUser(data));
+      setIsModalOpen(false);
     }
     setFormData(initialData);
   };
@@ -151,6 +157,7 @@ export default function UserForm() {
             formData.phone.error ||
             formData.address.error
           }
+          theme="primary"
         >
           Save
         </Button>

@@ -4,9 +4,9 @@ export default function PurchasingList() {
   const carts = useSelector((state) => state.carts);
 
   return (
-    <table>
+    <table className="my-8 w-full">
       <thead>
-        <tr>
+        <tr className="text-left">
           <th>Name</th>
           <th>Qty</th>
         </tr>

@@ -6,6 +6,7 @@ import Modal from "../components/UI/Modal";
 import PurchasingList from "../components/UI/PurchasingList";
 import Button from "../components/UI/Button";
 import { useState } from "react";
+import OrderSuccess from "../components/UI/OrderSuccess";
 
 export default function CartPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function CartPage() {
       {isProfileCompleted ? (
         <div className="grid grid-cols-1">
           {isSuccess ? (
-            "Yayy, order success"
+            <OrderSuccess/>
           ) : (
             <>
               {carts.map((cart) => (
@@ -40,7 +41,11 @@ export default function CartPage() {
             setIsModalOpen={setIsModalOpen}
           >
             <PurchasingList />
-            <Button onClick={handleClick}>Order</Button>
+            <div className="flex flex-col">
+              <Button onClick={handleClick} theme="primary">
+                Order
+              </Button>
+            </div>
           </Modal>
         </div>
       ) : (

@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Button from "../UI/Button";
 import Input from "../UI/Input";
 import PasswordInput from "../UI/PasswordInput";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import { login } from "../../features/user/userSlice";
 
 export default function LoginForm() {
@@ -59,17 +61,6 @@ export default function LoginForm() {
     e.preventDefault();
 
     if (!formData.name.error && !formData.password.error) {
-      // localStorage.setItem(
-      //   "user",
-      //   JSON.stringify({
-      //     name: formData.name.value,
-      //     password: formData.password.value,
-      //     email: "",
-      //     phone: "",
-      //     address: "",
-      //   })
-      // );
-
       const data = {
         ...user,
         name: formData.name.value,
@@ -82,10 +73,7 @@ export default function LoginForm() {
   };
 
   return (
-    <form
-      className="flex flex-col gap-4 mx-4 justify-center h-screen"
-      onSubmit={handleSubmit}
-    >
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <Input
         name="name"
         label="Nama"
@@ -104,6 +92,7 @@ export default function LoginForm() {
         <Button
           type="submit"
           disabled={formData.name.error || formData.password.error}
+          theme="primary"
         >
           Login
         </Button>
